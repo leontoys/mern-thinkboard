@@ -10,6 +10,17 @@ export const getAllNotes = async (req, res) => {
   }
 }
 
+export const getNoteById = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id)
+    if(!note) res.status(404).json({message:'Note not found'})
+    res.status(200).json(note)
+  } catch (error) {
+    console.error('Error in getNoteById', error)
+    res.status(500).json({message:"Internal server error"})
+  }
+}
+
 export const createNote = async (req,res) => {
   try {
     const { title, content } = req.body
@@ -35,6 +46,13 @@ export const updateNote = async (req, res) => {
   }
 }
 
-export const deleteNote = (req, res) => {
-  res.status(200).json({ message: "note deleted successfully" });
+export const deleteNote = async (req, res) => {
+  try {
+    const deletedNote = await Note.findByIdAndDelete(req.params.id)
+    if(!deletedNote) res.status(404).json('Note not found')
+    res.status(200).json({message:'Note deleted successfully'})
+  } catch (error) {
+    console.error("Error in deleteNote", error)
+    res.status(500).json({message:"Internal server error"})
+  }
 }
