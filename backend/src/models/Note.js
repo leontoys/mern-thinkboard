@@ -1,6 +1,5 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-//create schema
 const noteSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -11,10 +10,9 @@ const noteSchema = new mongoose.Schema({
         required : true
     }
 }, {
-    timeStamps : true
+    timestamps : true
 })
 
-//create model
-const Note = mongoose.Model("Note", noteSchema)
+const Note = mongoose.model('Note', noteSchema)
 
 export default Note
