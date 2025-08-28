@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import api from "../lib/axios"
 
 const CreatePage = () => {
   const [title, setTitle] = useState("")
@@ -19,12 +20,17 @@ const CreatePage = () => {
         return
       }
       setLoading(true)
-      await axios.post(" http://localhost:5001/api/notes", { title, content })
+      await api.post("/notes", { title, content })
       toast.success("Note created successfully")
       navigate('/')
     } catch (error) {
-      console.log(error.message)
-      toast.error('Error while creating note')
+      console.log(error)
+      if (error.response.status == 429) {
+        toast.error("Too many requests created")
+      }
+      else {
+        toast.error('Error while creating note')
+      }
     }
     finally {
       setLoading(false)
