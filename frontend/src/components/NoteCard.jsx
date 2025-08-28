@@ -5,13 +5,15 @@ import { formatDate } from '../lib/utils'
 import toast from 'react-hot-toast'
 import api from '../lib/axios'
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({ note, setNotes }) => {
+
     const handleDelete = async (e, id) => {
         e.preventDefault() //to stop navigating to detail page on click of card
         if (!window.confirm("Are you sure you want to delete?")) return
 
         try {
             await api.delete(`/notes/${id}`)
+            setNotes((prev)=>prev.filter((note)=>note._id !== id))
             toast.success('Note deleted successfully')
         
     } catch (error) {
