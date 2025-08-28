@@ -18,6 +18,41 @@ const CreatePage = () => {
             <ArrowLeftIcon className="size-5" />
                           Back to Notes
           </Link>
+          <div className='card  bg-base-100'>
+            <div className='card-body'>
+              <h2 className='card-title text-2xl'></h2>
+              <form onSubmit={handleSubmit}>
+                <div className='form-control mb-4'>
+                  <label className='label'>
+                    <span className='label-text'>Title</span>
+                  </label>
+                  <input className='input input-bordered'
+                    type='text'
+                    placeholder='Note Title'
+                    value={title}
+                    onChange={(e)=>setTitle(e.target.value)}
+                  />
+                </div>
+                <div className='form-control mb-4'>
+                  <label className='label'>
+                    <span className='label-text'>Content</span>
+                  </label>
+                  <textarea className='textarea textarea-bordered h-32'
+                    type='text'
+                    placeholder='Note Content'
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                  />
+                </div>
+                <div className='card-actions justify-end'>
+                  <button type='submit' className='btn btn-primary'
+                    disabled={loading}>
+                    {loading? "Creating....":"Create Note"}
+                    </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
